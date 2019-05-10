@@ -1,0 +1,66 @@
+{
+  "starters_veg": [
+    {
+      "id": "3764273gufgd",
+      "name": "Mushroom Manchrian",
+      "price" : 140
+    },
+    {
+      "id": "376465463gufgd",
+      "name": "Veg Manchrian",
+      "price" : 160
+    }
+  ],
+
+  "starters_non_veg": [
+    {
+      "id": "gtfhu56htrh",
+      "name": "Chicken 65",
+      "price" : 170
+    },
+    {
+      "id": "54y56huy56t",
+      "name": "Chilli Chicken",
+      "price" : 170
+    }
+  ],
+
+  "sandwich_burger": [
+    {
+      "id": "r3ge54wy5",
+      "name": "Veg Sandwich",
+      "price" : 70
+    },
+    {
+      "id": "th56tyju56",
+      "name": "Chicken Sandwich",
+      "price" : 110
+    }
+  ],
+
+  "main_course_veg": [
+    {
+      "id": "jg5940tgj5",
+      "name": "Kadai Veg",
+      "price" : 140
+    },
+    {
+      "id": "54yju76kj8",
+      "name": "Chana Masala",
+      "price" : 120
+    }
+  ],
+
+  "main_course_non_veg": [
+    {
+      "id": "g594t5ygh5",
+      "name": "Chicken Curry",
+      "price" : 180
+    },
+    {
+      "id": "yntj56j65",
+      "name": "Fish Curry",
+      "price" : 220
+    }
+  ]
+}
