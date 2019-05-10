@@ -1,21 +1,17 @@
-package shereen.sample.oyofoodapp.model
+package oyo.restaurant.food.model
 
 import android.content.Context
-import android.util.JsonReader
-import android.util.Log
 import androidx.lifecycle.LiveData
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import shereen.sample.oyofoodapp.model.response.StarterVegResponse
-import shereen.sample.oyofoodapp.model.room.ODao
-import shereen.sample.oyofoodapp.model.room.ODatabase
-import shereen.sample.oyofoodapp.model.room.entity.StarterVeg
-import shereen.sample.oyofoodapp.model.utils.LOGGER
-import shereen.sample.oyofoodapp.model.utils.SingletonHolder
+import oyo.restaurant.food.model.response.StarterVegResponse
+import oyo.restaurant.food.model.room.ODao
+import oyo.restaurant.food.model.room.ODatabase
+import oyo.restaurant.food.model.room.entity.StarterVeg
+import oyo.restaurant.food.model.utils.SingletonHolder
 
 class DataRepository private constructor(mContext: Context): SharedPrefRepository(mContext) {
 

@@ -1,8 +1,8 @@
-package shereen.sample.oyofoodapp.model.room.entity
+package oyo.restaurant.food.model.room.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import shereen.sample.oyofoodapp.model.utils.TABLE_STARTERS_VEG
+import oyo.restaurant.food.model.utils.TABLE_STARTERS_VEG
 
 @Entity(tableName = TABLE_STARTERS_VEG)
 class StarterVeg(

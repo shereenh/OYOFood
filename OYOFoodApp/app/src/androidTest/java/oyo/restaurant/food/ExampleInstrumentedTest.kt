@@ -1,4 +1,4 @@
-package shereen.sample.oyofoodapp
+package oyo.restaurant.food
 
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4

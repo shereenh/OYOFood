@@ -1,10 +1,9 @@
-package shereen.sample.oyofoodapp.model
+package oyo.restaurant.food.model
 
 import android.content.Context
 import android.content.SharedPreferences
-import shereen.sample.oyofoodapp.model.utils.SP_FILENAME
-import shereen.sample.oyofoodapp.model.utils.SP_FIRST_TIME
-import shereen.sample.oyofoodapp.model.utils.SingletonHolder
+import oyo.restaurant.food.model.utils.SP_FILENAME
+import oyo.restaurant.food.model.utils.SP_FIRST_TIME
 
 abstract class SharedPrefRepository(mContext: Context) {
 

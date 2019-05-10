@@ -1,11 +1,11 @@
-package shereen.sample.oyofoodapp.model.room
+package oyo.restaurant.food.model.room
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import shereen.sample.oyofoodapp.model.utils.DATABASE_NAME
-import shereen.sample.oyofoodapp.model.room.entity.StarterVeg
+import oyo.restaurant.food.model.utils.DATABASE_NAME
+import oyo.restaurant.food.model.room.entity.StarterVeg
 
 @Database(entities = arrayOf(StarterVeg::class), version = 1, exportSchema = false)
 abstract class ODatabase: RoomDatabase() {

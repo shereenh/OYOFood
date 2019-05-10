@@ -1,4 +1,4 @@
-package shereen.sample.oyofoodapp
+package oyo.restaurant.food
 
 import org.junit.Test
 

@@ -1,12 +1,12 @@
-package shereen.sample.oyofoodapp.model.room
+package oyo.restaurant.food.model.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
-import shereen.sample.oyofoodapp.model.room.entity.StarterVeg
-import shereen.sample.oyofoodapp.model.utils.TABLE_STARTERS_VEG
+import oyo.restaurant.food.model.room.entity.StarterVeg
+import oyo.restaurant.food.model.utils.TABLE_STARTERS_VEG
 
 @Dao
 interface ODao {

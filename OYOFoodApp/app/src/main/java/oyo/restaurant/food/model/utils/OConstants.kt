@@ -1,4 +1,4 @@
-package shereen.sample.oyofoodapp.model.utils
+package oyo.restaurant.food.model.utils
 
 const val LOGGER = "OYO LOGGER"
 

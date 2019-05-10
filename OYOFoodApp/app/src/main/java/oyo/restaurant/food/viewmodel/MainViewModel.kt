@@ -1,8 +1,8 @@
-package shereen.sample.oyofoodapp.viewmodel
+package oyo.restaurant.food.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import shereen.sample.oyofoodapp.model.DataRepository
+import oyo.restaurant.food.model.DataRepository
 
 class MainViewModel(application: Application):AndroidViewModel(application) {
 
