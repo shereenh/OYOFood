@@ -1,10 +1,12 @@
 package oyo.restaurant.food.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
+import kotlinx.android.synthetic.main.activity_main.*
 import oyo.restaurant.food.R
 import oyo.restaurant.food.viewmodel.MainViewModel
 
@@ -18,15 +20,13 @@ class MainActivity : AppCompatActivity() {
 
         mViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
-        supportFragmentManager.inTransaction {
-            replace(R.id.frameLayout, TabFragment())
+        waiterButton.setOnClickListener{
+
+            val intent = Intent(this@MainActivity, WaiterActivity::class.java)
+            startActivity(intent)
         }
     }
 
-    private inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> Unit) {
-        val fragmentTransaction = beginTransaction()
-        fragmentTransaction.func()
-        fragmentTransaction.commit()
-    }
+
 
 }
