@@ -6,12 +6,13 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.WaiterActivity">
+        tools:context=".view.waiter.WaiterActivity">
 
     <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:background="@color/pale"
-            app:tabIndicatorHeight="1dp"
+            app:tabIndicatorHeight="8dp"
+            app:tabIndicator="@color/colorPrimary"
             app:tabSelectedTextColor="@color/colorAccent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

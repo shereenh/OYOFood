@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+            app:showAsAction="always|collapseActionView"
+            android:id="@+id/add"
+            android:icon="@android:drawable/ic_input_add" />
+
+    <item
+            android:id="@+id/clear"
+            android:title="@string/clear_orders"
+            app:showAsAction="never"/>
+
+    <item
+            android:id="@+id/orderHistory"
+            android:title="@string/order_history"
+            app:showAsAction="never"/>
+
+    <item
+            android:id="@+id/settings"
+            android:title="@string/settings"
+            app:showAsAction="never"/>
+</menu>

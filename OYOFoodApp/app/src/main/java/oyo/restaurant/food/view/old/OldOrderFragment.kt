@@ -1,4 +1,4 @@
-package oyo.restaurant.food.view
+package oyo.restaurant.food.view.old
 
 
 import android.os.Bundle
@@ -9,14 +9,14 @@ import android.view.ViewGroup
 import androidx.annotation.Nullable
 import kotlinx.android.synthetic.main.fragment_order.view.*
 
-class OrderFragment : Fragment() {
+class OldOrderFragment : Fragment() {
 
     lateinit var rootView: View
     var tab: Int = 0
 
     companion object{
-        fun newInstance(tab: Int): OrderFragment {
-            val fragment = OrderFragment()
+        fun newInstance(tab: Int): OldOrderFragment {
+            val fragment = OldOrderFragment()
             val args = Bundle()
             args.putInt("someInt", tab)
             fragment.arguments = args
