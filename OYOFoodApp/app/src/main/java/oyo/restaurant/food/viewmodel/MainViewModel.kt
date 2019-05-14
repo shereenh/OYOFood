@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import oyo.restaurant.food.model.DataRepository
 
-class MainViewModel(application: Application):AndroidViewModel(application) {
+open class MainViewModel(application: Application):AndroidViewModel(application) {
 
     private val mRepository : DataRepository = DataRepository.getInstance(application.applicationContext)
 

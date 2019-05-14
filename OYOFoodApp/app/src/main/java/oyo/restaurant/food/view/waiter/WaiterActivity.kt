@@ -7,6 +7,8 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_waiter.*
 import com.google.android.material.tabs.TabLayout
 import oyo.restaurant.food.R
@@ -14,38 +16,82 @@ import oyo.restaurant.food.view.old.OldOrderPagerAdapter
 import oyo.restaurant.food.view.waiter.order.OrderEntity
 import oyo.restaurant.food.view.waiter.order.OrderFragment
 import oyo.restaurant.food.view.waiter.order.OrderPagerAdapter
+import oyo.restaurant.food.viewmodel.MainViewModel
+import oyo.restaurant.food.viewmodel.OrderViewModel
+import oyo.restaurant.food.viewmodel.WaiterViewModel
 
 
 class WaiterActivity : AppCompatActivity() {
 
-    private lateinit var menuItem: MenuItem
-
-    lateinit var adapter: OrderPagerAdapter
+    lateinit var mWaiterViewModel : WaiterViewModel
+    lateinit var mOrderViewModel: OrderViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_waiter)
-//        old()
-
-//        supportFragmentManager.inTransaction {
-//            replace(R.id.frameLayout, OldOrderFragment())
-//        }
-
         new()
-
+        observers()
     }
 
     fun new(){
-        adapter = OrderPagerAdapter(supportFragmentManager)
 
-        newOrder()
-//        adapter.addFragment(OrderFragment(), "Tab1 ")
-//        adapter.addFragment(OrderFragment(), "Tab@ ")
-//        adapter.addFragment(OrderFragment(), "Tab3 ")
+        mWaiterViewModel = ViewModelProviders.of(this).get(WaiterViewModel::class.java)
+        mOrderViewModel = ViewModelProviders.of(this).get(OrderViewModel::class.java)
+        mWaiterViewModel.setOrderAdapter(OrderPagerAdapter(supportFragmentManager))
+        mWaiterViewModel.newOrder()
 
-        frameLayout.adapter = adapter
-
+        frameLayout.adapter = mWaiterViewModel.getOrderAdapter()
         tabs.setupWithViewPager(frameLayout)
+    }
+
+    fun observers(){
+        mOrderViewModel.orderLive.observe(this, Observer<OrderEntity> { order ->
+            if(0L != order.id){
+                mWaiterViewModel.changeTitle(order.id, order.title)
+            }
+        })
+
+        mOrderViewModel.removeLive.observe(this, Observer<Long> { orderId ->
+            if(0L != orderId){
+                mWaiterViewModel.removeOrder(orderId)
+            }
+        })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.options_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item!!.itemId){
+            R.id.add-> {showToast("add selected")
+                mWaiterViewModel.newOrder()
+                if (tabs.tabCount == 4) {
+                    tabs.tabMode = TabLayout.MODE_FIXED
+                } else {
+                    tabs.tabMode = TabLayout.MODE_SCROLLABLE
+                }
+            }
+            R.id.clear -> {showToast("clear selected")
+                mWaiterViewModel.clearOrders()}
+            R.id.orderHistory -> showToast("history selected")
+            R.id.settings -> showToast("settings selected")
+
+        }
+        return true
+    }
+
+    fun showToast(message: String){
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+
+    private inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> Unit) {
+        val fragmentTransaction = beginTransaction()
+        fragmentTransaction.func()
+        fragmentTransaction.commit()
     }
 
     fun old(){
@@ -66,53 +112,5 @@ class WaiterActivity : AppCompatActivity() {
         } else {
             tabs.tabMode = TabLayout.MODE_SCROLLABLE
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.options_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item!!.itemId){
-            R.id.add-> {showToast("add selected")
-//                adapter.addFragment(OrderFragment(), "another")
-                newOrder()
-                adapter.notifyDataSetChanged()
-                if (tabs.tabCount == 4) {
-                    tabs.tabMode = TabLayout.MODE_FIXED
-                } else {
-                    tabs.tabMode = TabLayout.MODE_SCROLLABLE
-                }
-            }
-            R.id.clear -> showToast("clear selected")
-            R.id.orderHistory -> showToast("history selected")
-            R.id.settings -> showToast("settings selected")
-
-        }
-        return true
-    }
-
-    fun showToast(message: String){
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
-
-    private inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> Unit) {
-        val fragmentTransaction = beginTransaction()
-        fragmentTransaction.func()
-        fragmentTransaction.commit()
-    }
-
-
-    fun newOrder(){
-        val orderId = (0..Long.MAX_VALUE).random()
-        val order = OrderEntity(
-            orderId,
-            "new",
-            OrderFragment.newInstance(orderId),
-            0
-        )
-        adapter.addTab(order)
     }
 }

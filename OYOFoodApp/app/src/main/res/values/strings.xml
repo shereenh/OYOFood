@@ -18,4 +18,5 @@
     <string name="delete_order">Delete Order</string>
     <string name="starters_non_veg">Starters - Non - Veg</string>
     <string name="sandwich_burger"><![CDATA[Sandwich & Burger]]></string>
+    <string name="main_course_veg">Main Course - Veg</string>
 </resources>

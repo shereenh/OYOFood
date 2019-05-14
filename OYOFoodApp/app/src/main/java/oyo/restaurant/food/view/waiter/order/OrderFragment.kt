@@ -4,30 +4,30 @@ package oyo.restaurant.food.view.waiter.order
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.annotation.Nullable
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
-import kotlinx.android.synthetic.main.fragment_order.*
 import kotlinx.android.synthetic.main.fragment_order.view.*
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.sandwich_burger_menu.view.*
-import kotlinx.android.synthetic.main.starter_non_veg_menu.view.*
-import kotlinx.android.synthetic.main.starter_veg_menu.view.*
+import kotlinx.android.synthetic.main.menu_list.view.*
+import oyo.restaurant.food.R
+import oyo.restaurant.food.model.utils.*
 import oyo.restaurant.food.view.waiter.order.menu.MenuAdapter
-import oyo.restaurant.food.view.waiter.order.menu.MenuEnity
-import oyo.restaurant.food.view.waiter.order.table.TableAdapter
-import oyo.restaurant.food.view.waiter.order.table.TableEntity
+import oyo.restaurant.food.view.waiter.order.menu.TitleAdapter
+import oyo.restaurant.food.view.waiter.order.menu.TitleEntity
+import oyo.restaurant.food.viewmodel.OrderViewModel
 import java.util.*
 
 
 class OrderFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     lateinit var rootView: View
+    lateinit var mOrderViewModel: OrderViewModel
+    var position = 0
 
     companion object{
         fun newInstance(orderId: Long): OrderFragment {
@@ -49,12 +49,15 @@ class OrderFragment : Fragment(), AdapterView.OnItemSelectedListener {
         return rootView
     }
 
-    fun init(){
+    private fun init(){
+
+        activity?.let {
+            mOrderViewModel = ViewModelProviders.of(it).get(OrderViewModel::class.java)
+        }
 
         val orderId = arguments!!.getLong("orderId", 0)
         rootView.fragNum.text = orderId.toString()
 
-        val tableList = arrayListOf("None","Table 1", "Table 2", "Table 3", "Table 4", "Table 5")
         rootView.tableSpinner.onItemSelectedListener = this
         val adapter = ArrayAdapter(activity, android.R.layout.simple_spinner_item, tableList)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -62,35 +65,51 @@ class OrderFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         initMenus()
 
+        val titleList = arrayListOf(TitleEntity(getString(R.string.starter_veg), startersVegList),
+                    TitleEntity(getString(R.string.starters_non_veg), startersNonVegList))
+        val titleAdapter = TitleAdapter(titleList)
+        rootView.titleRecycler.adapter = titleAdapter
+
     }
 
-    fun initMenus(){
-        rootView.menuRecycler_1.layoutManager = LinearLayoutManager(activity)
-        rootView.menuRecycler_1.addItemDecoration(DividerItemDecoration(Objects.requireNonNull(context), DividerItemDecoration.VERTICAL))
-        val startersVegList = arrayListOf<MenuEnity>(MenuEnity("Mushroom Manchurian"),
-            MenuEnity("Veg Manchurian"), MenuEnity("Gobi Chilli"))
+    private fun initMenus(){
+        rootView.menu1.menuText.text = getString(R.string.starter_veg)
+        rootView.menu1.menuRecycler.layoutManager = LinearLayoutManager(activity)
+        rootView.menu1.menuRecycler.addItemDecoration(DividerItemDecoration(Objects.requireNonNull(context), DividerItemDecoration.VERTICAL))
         val adapter1 = MenuAdapter(startersVegList)
-        rootView.menuRecycler_1.adapter = adapter1
+        rootView.menu1.menuRecycler.adapter = adapter1
 
-        rootView.menuRecycler_2.layoutManager = LinearLayoutManager(activity)
-        rootView.menuRecycler_2.addItemDecoration(DividerItemDecoration(Objects.requireNonNull(context), DividerItemDecoration.VERTICAL))
-        val startersNonVegList = arrayListOf<MenuEnity>(MenuEnity("Chicken 65"),
-            MenuEnity("Chilli Chicken"), MenuEnity("Chicken Kebab"))
+        rootView.menu2.menuText.text = getString(R.string.starters_non_veg)
+        rootView.menu2.menuRecycler.layoutManager = LinearLayoutManager(activity)
+        rootView.menu2.menuRecycler.addItemDecoration(DividerItemDecoration(Objects.requireNonNull(context), DividerItemDecoration.VERTICAL))
         val adapter2 = MenuAdapter(startersNonVegList)
-        rootView.menuRecycler_2.adapter = adapter2
+        rootView.menu2.menuRecycler.adapter = adapter2
 
-        rootView.menuRecycler_3.layoutManager = LinearLayoutManager(activity)
-        rootView.menuRecycler_3.addItemDecoration(DividerItemDecoration(Objects.requireNonNull(context), DividerItemDecoration.VERTICAL))
-        val sandwichList = arrayListOf<MenuEnity>(MenuEnity("Veg Sandwich"),
-            MenuEnity("Chicken Sandwich"), MenuEnity("Stuffed Veg Sandwich"))
+        rootView.menu3.menuText.text = getString(R.string.sandwich_burger)
+        rootView.menu3.menuRecycler.layoutManager = LinearLayoutManager(activity)
+        rootView.menu3.menuRecycler.addItemDecoration(DividerItemDecoration(Objects.requireNonNull(context), DividerItemDecoration.VERTICAL))
         val adapter3 = MenuAdapter(sandwichList)
-        rootView.menuRecycler_3.adapter = adapter3
+        rootView.menu3.menuRecycler.adapter = adapter3
+
+        rootView.menu4.menuText.text = getString(R.string.main_course_veg)
+        rootView.menu4.menuRecycler.layoutManager = LinearLayoutManager(activity)
+        rootView.menu4.menuRecycler.addItemDecoration(DividerItemDecoration(Objects.requireNonNull(context), DividerItemDecoration.VERTICAL))
+        val adapter4 = MenuAdapter(mainCourseVegList)
+        rootView.menu4.menuRecycler.adapter = adapter4
     }
 
-    fun listeners(){
+    private fun listeners(){
+
+        rootView.removeTab.setOnClickListener{
+            mOrderViewModel.removeLiveTab(arguments!!.getLong("orderId", 0))
+        }
+
+
         rootView.showMenu.setOnClickListener{
             rootView.initialLinearLayout.visibility = View.GONE
             rootView.menuLinearLayout.visibility = View.VISIBLE
+
+            mOrderViewModel.setLiveOrderTitle(arguments!!.getLong("orderId", 0), tableList[position])
         }
 
         rootView.editButton.setOnClickListener{
@@ -103,6 +122,7 @@ class OrderFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 //        Toast.makeText(activity, " selected " + Integer.toString(position), Toast.LENGTH_SHORT).show()
         rootView.showMenu.isEnabled = position!=0
+        this.position = position
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {}

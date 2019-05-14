@@ -19,7 +19,7 @@
                       android:orientation="vertical"
                       android:id="@+id/initialLinearLayout">
 
-            <Button android:id="@+id/remove"
+            <Button android:id="@+id/removeTab"
                     android:text="@string/delete_order"
                     android:layout_marginTop="4dp"
                     android:layout_margin="8dp"
@@ -30,16 +30,10 @@
 
 
             <TextView android:id="@+id/fragNum"
-                      android:visibility="gone"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:text="none"/>
+                      android:text="placeholder"/>
 
-            <!--<androidx.recyclerview.widget.RecyclerView-->
-            <!--android:id="@+id/tableRecycler"-->
-            <!--android:background="@color/ivory"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"/>-->
 
             <LinearLayout android:layout_width="match_parent"
                           android:background="@color/ivory"
@@ -52,6 +46,7 @@
                 <TextView android:layout_width="wrap_content"
                           android:textStyle="bold"
                           android:layout_marginTop="8dp"
+                          android:layout_marginBottom="8dp"
                           android:textAlignment="center"
                           android:textSize="24sp"
                           android:layout_height="wrap_content"
@@ -59,6 +54,7 @@
 
                 <Spinner android:layout_width="wrap_content"
                          android:layout_marginTop="8dp"
+                         android:layout_marginBottom="8dp"
                          android:layout_marginStart="8dp"
                          android:layout_gravity="center"
                          android:backgroundTint="@color/colorAccent"
@@ -83,8 +79,8 @@
                       android:layout_height="wrap_content"
                       android:layout_marginStart="16dp"
                       android:layout_marginEnd="16dp"
-                      android:orientation="vertical"
                       android:visibility="gone"
+                      android:orientation="vertical"
                       android:id="@+id/menuLinearLayout">
 
             <Button android:id="@+id/editButton"
@@ -93,9 +89,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
-            <include layout="@layout/starter_veg_menu"/>
-            <include layout="@layout/starter_non_veg_menu"/>
-            <include layout="@layout/sandwich_burger_menu"/>
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/titleRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            <include android:id="@+id/menu1" layout="@layout/menu_list"/>
+            <include android:id="@+id/menu2" layout="@layout/menu_list"/>
+            <include android:id="@+id/menu3" layout="@layout/menu_list"/>
+            <include android:id="@+id/menu4" layout="@layout/menu_list"/>
 
         </LinearLayout>
 

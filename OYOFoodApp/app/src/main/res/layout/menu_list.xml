@@ -7,16 +7,16 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <TextView android:layout_width="match_parent"
+    <TextView android:id="@+id/menuText"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:background="@color/tan"
               android:paddingStart="2dp"
-              android:text="@string/starter_veg"
               android:textSize="24sp"
               android:textStyle="bold"/>
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/menuRecycler_1"
+            android:id="@+id/menuRecycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
